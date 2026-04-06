@@ -1,1 +1,88 @@
 @import "tailwindcss";
+
+/* Class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Light Theme ─── */
+:root {
+  --c-bg: #fcf9f4;
+  --c-fg: #1c1c19;
+  --c-secondary: #615e58;
+  --c-muted: #858383;
+  --c-border: rgba(28, 28, 25, 0.1);
+  --c-surface: #f0ede8;
+  --c-surface-low: #f6f3ee;
+  --c-surface-dim: #dcdad5;
+  --c-skel-from: #e5e2dd;
+  --c-skel-via: #f0ede8;
+  --c-skel-to: #e5e2dd;
+}
+
+/* ─── Dark Theme ─── */
+.dark {
+  --c-bg: #1A1A1A;
+  --c-fg: #F5F2ED;
+  --c-secondary: #8A8680;
+  --c-muted: #8A8680;
+  --c-border: #333333;
+  --c-surface: #212121;
+  --c-surface-low: #1F1F1F;
+  --c-surface-dim: #141414;
+  --c-skel-from: #2b2b2b;
+  --c-skel-via: #333333;
+  --c-skel-to: #2b2b2b;
+}
+
+/* ─── Design Tokens ─── */
+@theme {
+  --color-page: var(--c-bg);
+  --color-ink: var(--c-fg);
+  --color-stone: var(--c-secondary);
+  --color-faded: var(--c-muted);
+  --color-line: var(--c-border);
+  --color-panel: var(--c-surface);
+  --color-canvas: var(--c-surface-low);
+  --color-dim: var(--c-surface-dim);
+
+  --font-family-headline: var(--font-headline), "Newsreader", serif;
+  --font-family-body: var(--font-body), "Inter", sans-serif;
+}
+
+/* ─── Base ─── */
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--c-bg);
+  color: var(--c-fg);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+::selection {
+  background-color: var(--c-fg);
+  color: var(--c-bg);
+}
+
+.hairline-t { border-top: 0.5px solid var(--c-border); }
+.hairline-b { border-bottom: 0.5px solid var(--c-border); }
+
+/* ─── Animations ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--c-skel-from) 25%, var(--c-skel-via) 50%, var(--c-skel-to) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
